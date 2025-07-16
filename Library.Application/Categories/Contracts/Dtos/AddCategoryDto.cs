@@ -1,4 +1,4 @@
-﻿namespace Library.Application.Categories
+﻿namespace Library.Application.Categories.Contracts.Dtos
 {
     public class AddCategoryDto
     {

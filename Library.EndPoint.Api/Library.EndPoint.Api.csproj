@@ -16,4 +16,8 @@
 		<ProjectReference Include="..\Library.Persistence.EF\Library.Persistence.EF.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Properties\" />
+	</ItemGroup>
+
 </Project>

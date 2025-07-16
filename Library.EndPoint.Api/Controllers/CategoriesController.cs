@@ -1,4 +1,5 @@
-﻿using Library.Application.Categories;
+﻿using Library.Application.Categories.Contracts;
+using Library.Application.Categories.Contracts.Dtos;
 using Library.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,30 +19,14 @@ namespace Library.EndPoint.Api.Controllers
         [HttpGet]
         public List<GetCategoryDto> GetAll()
         {
-            /* var result = Categories.Select(c => new GetCategoryDto
-             {
-                 Title = c.Title,
-             }).ToList();
-
-             return result;*/
-
-            throw new NotImplementedException();
+            return _service.GetAll();
         }
 
         [HttpPost]
-        public void Add(AddCategoryDto dto)
+        public int Add(AddCategoryDto dto)
         {
-            _service.Add(dto);
+            var id =  _service.Add(dto);
+            return id;
         }
     }
-
-
-
-
-
-  
-
-
-
-    
 }

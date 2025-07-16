@@ -1,4 +1,5 @@
-﻿using Library.Application.Categories;
+﻿using Library.Application.Categories.Contracts;
+using Library.Application.Categories.Contracts.Dtos;
 using Library.Entities;
 
 namespace Library.Persistence.EF.Categories
@@ -15,11 +16,21 @@ namespace Library.Persistence.EF.Categories
         public void Add(Category category)
         {
            _dbcontext.Categories.Add(category);
+            _dbcontext.SaveChanges();
+        }
+
+        public bool DoesCategoryTitleExist(string title)
+        {
+            return _dbcontext.Categories.Any(c => c.Title == title);
         }
 
         public List<GetCategoryDto> GetAll()
         {
-            throw new NotImplementedException();
+            return _dbcontext.Categories.Select(_ => new GetCategoryDto
+            {
+                 Id = _.Id,
+                Title = _.Title,
+            }).ToList();
         }
     }
 }
