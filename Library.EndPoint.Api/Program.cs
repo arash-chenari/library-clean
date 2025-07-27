@@ -11,9 +11,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//use autofac for ioc container
 
 var connectionString = builder.Configuration.GetConnectionString("ConnectionString");
 
@@ -23,7 +25,8 @@ builder.Services.AddDbContext<EfDbContext>(options =>
 });
 
 builder.Services.AddScoped<ICategoryRepository, EfCategoryRepository>()
-    .AddScoped<ICategoriesService, CategoriesService>();
+    .AddScoped<ICategoriesService, CategoriesService>()
+    .AddScoped<IUnitOfWork, EFUnitOfWork>();
 
 
 var app = builder.Build();
@@ -44,6 +47,7 @@ if (app.Environment.IsDevelopment())
             {
                 var exTitle = exeption.Error.GetType().Name
                 .ToString().Replace("Exception", "");
+                context.Response.StatusCode = 400; // Bad Request
                 await context.Response.WriteAsync(exTitle);
             }else
             {

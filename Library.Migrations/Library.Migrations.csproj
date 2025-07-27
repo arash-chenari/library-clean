@@ -13,4 +13,10 @@
 		<PackageReference Include="FluentMigrator.Runner.SqlServer" Version="7.1.0" />
 	</ItemGroup>
 	
+	<ItemGroup>
+	  <None Update="InitialTables.sql">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+	
 </Project>

@@ -4,5 +4,9 @@ namespace Library.Application.Categories.Contracts.Exceptions
 {
     public class CategoryWithSameTitleIsAlreadyExistException : BusinessException
     {
+        public CategoryWithSameTitleIsAlreadyExistException(string message) : base(message)
+        {
+            
+        }
     }
 }

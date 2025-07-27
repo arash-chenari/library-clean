@@ -2,24 +2,28 @@
 using Library.Application.Categories.Contracts.Dtos;
 using Library.Application.Categories.Contracts.Exceptions;
 using Library.Entities;
+using Library.Entities.Abstraction;
 
 namespace Library.Application.Categories
 {
     public class CategoriesService : ICategoriesService
     {
         private readonly ICategoryRepository _repository;
+        private readonly IUnitOfWork _uow;
 
-        public CategoriesService(ICategoryRepository repository)
+        public CategoriesService(ICategoryRepository repository, IUnitOfWork uow)
         {
             _repository = repository;
+            _uow = uow;
         }
 
         public int Add(AddCategoryDto dto)
         {
-            //PreventToAddCategoryWithDuplicateTitle(dto);
+            PreventToAddCategoryWithDuplicateTitle(dto);
 
             Category category = new Category
             {
+                AgeRange = dto.AgeRange,
                 Title = dto.Title,
             };
 
@@ -33,6 +37,12 @@ namespace Library.Application.Categories
         }
 
 
+        public void AddCategoryWithBooks()
+        {
+            //create category -> add with repository
+            //crate book -> add with book repository
+            _uow.Save();
+        }
 
         private void PreventToAddCategoryWithDuplicateTitle(AddCategoryDto dto)
         {
@@ -44,7 +54,8 @@ namespace Library.Application.Categories
                 throw new CategoryWithSameTitleIsAlreadyExistException();
             }
         }
-
-      
     }
+
+
+    
 }
